@@ -1,0 +1,471 @@
+
+body {
+  background: #f4f6fa;
+  color: #222;
+  font-family: 'Roboto', Arial, sans-serif;
+}
+body.dark {
+  background: #181c23;
+  color: #e6e6e6;
+  transition: background 0.3s, color 0.3s;
+}
+.card, .dashboard-card, #attendance-summary {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 2.2rem 2rem 2.2rem 2rem;
+  margin-bottom: 2.2rem;
+  margin-top: 0.7rem;
+  border: 1px solid #e6eaf0;
+  transition: box-shadow 0.2s, background 0.2s;
+}
+body.dark .card, body.dark .dashboard-card, body.dark #attendance-summary {
+  background: #232733;
+  color: #e6e6e6;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  border: 1px solid #232733;
+}
+.card h2, .dashboard-card h2, #attendance-summary h2 {
+  font-size: 1.45rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  color: #222;
+}
+body.dark .card h2, body.dark .dashboard-card h2, body.dark #attendance-summary h2 {
+  color: #fff;
+}
+.sidebar {
+  background: #fff;
+  color: #222;
+  border-right: 1px solid #e6eaf0;
+}
+body.dark .sidebar {
+  background: #20232a;
+  color: #e6e6e6;
+  border-right: 1px solid #232733;
+}
+.sidebar a, .sidebar ul li a {
+  color: #222;
+}
+body.dark .sidebar a, body.dark .sidebar ul li a {
+  color: #b3c6ff;
+}
+.sidebar a.active, .sidebar ul li a.active {
+  background: #4a6cf7;
+  color: #fff;
+  border-radius: 8px;
+}
+body.dark .sidebar a.active, body.dark .sidebar ul li a.active {
+  background: #4a6cf7;
+  color: #fff;
+}
+.sidebar .logout {
+  color: #888;
+}
+body.dark .sidebar .logout {
+  color: #b3c6ff;
+}
+.employee-container {
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  width: 100%;
+  min-height: 70vh;
+}
+.employee-form, .employee-list-section {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 2.2rem 2rem 2.5rem 2rem;
+  flex: 1 1 0;
+  min-width: 340px;
+  font-size: 1.08rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+}
+body.dark .employee-form, body.dark .employee-list-section {
+  background: #232733;
+  color: #e6e6e6;
+}
+.employee-form-header {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 1.3rem;
+  text-align: left;
+}
+body.dark .employee-form-header {
+  color: #b3c6ff;
+}
+.employee-form label {
+  display: block;
+  margin-top: 0.9rem;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+  font-size: 1.13rem;
+  text-align: left;
+}
+.employee-form input,
+.employee-form select {
+  width: 90%;
+  padding: 0.8rem;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  margin-bottom: 0.4rem;
+  font-size: 1.13rem;
+  background: #fff;
+  color: #222;
+}
+body.dark .employee-form input, body.dark .employee-form select {
+  background: #232733;
+  color: #e6e6e6;
+  border: 1.5px solid #4a6cf7;
+}
+body.dark .employee-form input:focus, body.dark .employee-form select:focus {
+  border: 2px solid #b3c6ff;
+}
+#addEmpBtn {
+  width: 100%;
+  background: #4a6cf7;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.9rem 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-top: 1.3rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+#addEmpBtn:disabled {
+  background: #b3c6ff;
+  cursor: not-allowed;
+}
+.employee-list-section {
+  min-width: 520px;
+  max-width: 650px;
+  font-size: 1.05rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+}
+.employee-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.1rem;
+}
+.employee-list-header label {
+  font-weight: 700;
+  font-size: 1.13rem;
+}
+body.dark .employee-list-header label {
+  color: #b3c6ff;
+}
+.employee-list-header select {
+  padding: 0.4rem 0.7rem;
+  border-radius: 6px;
+  border: 1px solid #d0d0d0;
+  font-size: 1.05rem;
+}
+#employeeList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#employeeList li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f7f9fc;
+  border-radius: 6px;
+  padding: 0.8rem 0.7rem;
+  margin-bottom: 0.6rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
+body.dark #employeeList li {
+  background: #232733;
+  color: #e6e6e6;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+}
+#employeeList strong {
+  font-size: 1.08rem;
+}
+#employeeList span {
+  font-size: 0.98rem;
+  color: #555;
+}
+.delete-emp {
+  background: #ff4d4f;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.97rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+body.dark .delete-emp {
+  background: #ff4d4f;
+  color: #fff;
+}
+.delete-emp:hover {
+  background: #d9363e;
+}
+body.dark .delete-emp:hover {
+  background: #d9363e;
+}
+.time-display {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  font-size: 2.3rem;
+  font-weight: 700;
+  margin-top: 0.2rem;
+}
+body.dark .time-display {
+  color: #b3c6ff;
+}
+#attendance-today-table table {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f9fafc;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+}
+body.dark #attendance-today-table table {
+  background: #232733;
+  color: #e6e6e6;
+}
+#attendance-today-table th {
+  background: #f2f6fa;
+  color: #333;
+  font-weight: 600;
+  padding: 1rem 0.7rem;
+  border-bottom: 2px solid #e6eaf0;
+}
+body.dark #attendance-today-table th {
+  background: #232733;
+  color: #b3c6ff;
+  border-bottom: 2px solid #2d3140;
+}
+#attendance-today-table td {
+  padding: 0.9rem 0.7rem;
+  border-bottom: 1px solid #e6eaf0;
+  font-size: 1.08rem;
+}
+body.dark #attendance-today-table td {
+  border-bottom: 1px solid #2d3140;
+}
+#attendance-today-table tr:last-child td {
+  border-bottom: none;
+}
+#attendance-today-table tr:hover {
+  background: #eef3fa;
+}
+body.dark #attendance-today-table tr:hover {
+  background: #232b3a;
+}
+#attendanceDeptFilter, #attendanceDeptSelect, #attendanceName {
+  padding: 0.7rem 1.1rem;
+  border-radius: 8px;
+  border: 1px solid #d0d0d0;
+  font-size: 1.08rem;
+  margin-right: 1rem;
+  background: #f9fafc;
+  margin-bottom: 1rem;
+  transition: border 0.2s;
+  color: #222;
+}
+body.dark #attendanceDeptFilter, body.dark #attendanceDeptSelect, body.dark #attendanceName {
+  background: #232733;
+  color: #e6e6e6;
+  border: 1.5px solid #4a6cf7;
+}
+body.dark #attendanceDeptFilter:focus, body.dark #attendanceDeptSelect:focus, body.dark #attendanceName:focus {
+  border: 2px solid #b3c6ff;
+}
+.finger-btn, #btnTimeIn, #btnTimeOut {
+  background: #4a6cf7;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.08rem;
+  font-weight: 600;
+  margin-right: 0.7rem;
+  margin-top: 0.2rem;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(74,108,247,0.07);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+body.dark .finger-btn, body.dark #btnTimeIn, body.dark #btnTimeOut {
+  background: #4a6cf7;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(74,108,247,0.18);
+}
+.finger-btn:disabled, #btnTimeIn:disabled, #btnTimeOut:disabled {
+  background: #b3c6ff;
+  cursor: not-allowed;
+}
+body.dark .finger-btn:disabled, body.dark #btnTimeIn:disabled, body.dark #btnTimeOut:disabled {
+  background: #2d3140;
+  color: #888;
+}
+.finger-btn:hover:not(:disabled), #btnTimeIn:hover:not(:disabled), #btnTimeOut:hover:not(:disabled) {
+  background: #3556c7;
+}
+body.dark .finger-btn:hover:not(:disabled), body.dark #btnTimeIn:hover:not(:disabled), body.dark #btnTimeOut:hover:not(:disabled) {
+  background: #3556c7;
+}
+#attendance-summary {
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 1.5px 0 #e6eaf0 inset;
+  padding: 2.2rem 1.5rem 2.2rem 1.5rem;
+  margin: 0 auto;
+  max-width: 900px;
+  border: 2.5px solid transparent;
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  position: relative;
+  /* Bezel gradient border */
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 1.5px 0 #e6eaf0 inset;
+  border-image: linear-gradient(135deg, #e6eaf0 60%, #b3c6ff 100%) 1;
+  overflow: hidden;
+}
+#attendance-summary::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 38px;
+  border-radius: 24px 24px 0 0;
+  background: linear-gradient(90deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.08) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+#attendance-summary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  box-shadow: 0 2px 18px 0 rgba(74,108,247,0.07) inset;
+  pointer-events: none;
+  z-index: 1;
+}
+#attendance-summary h2 {
+  color: #222;
+  z-index: 3;
+  position: relative;
+}
+#attendance-action-section label, .dashboard-card label, .card label {
+  font-weight: 600;
+  font-size: 1.08rem;
+  margin-bottom: 0.3rem;
+  display: block;
+  color: #333;
+}
+.edit-emp-form {
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  margin-bottom: 0.7rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+.edit-emp-form-fields, .edit-emp-form-actions {
+  display: contents;
+}
+.edit-emp-form input, .edit-emp-form select {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 0.32rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #b3c6ff;
+  font-size: 0.97rem;
+  background: #fff;
+  color: #222;
+  box-sizing: border-box;
+  height: 36px;
+}
+.edit-emp-form button.save-emp {
+  background: #4a6cf7;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 0.32rem 1.1rem;
+  font-size: 0.97rem;
+  min-width: 64px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-right: 0.2rem;
+  height: 36px;
+  box-sizing: border-box;
+}
+.edit-emp-form button.save-emp:hover {
+  background: #3556c7;
+}
+.edit-emp-form button.cancel-emp {
+  background: #e6eaf0;
+  color: #333;
+  border: none;
+  border-radius: 5px;
+  padding: 0.32rem 1.1rem;
+  font-size: 0.97rem;
+  min-width: 64px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  height: 36px;
+  box-sizing: border-box;
+}
+.edit-emp-form button.cancel-emp:hover {
+  background: #bbb;
+}
+body.dark .edit-emp-form {
+  background: none;
+  box-shadow: none;
+}
+body.dark .edit-emp-form input, body.dark .edit-emp-form select {
+  background: #232733;
+  color: #e6e6e6;
+  border: 1.5px solid #4a6cf7;
+}
+body.dark .edit-emp-form button.save-emp {
+  background: #4a6cf7;
+  color: #fff;
+}
+body.dark .edit-emp-form button.save-emp:hover {
+  background: #3556c7;
+}
+body.dark .edit-emp-form button.cancel-emp {
+  background: #2d3140;
+  color: #b3c6ff;
+}
+body.dark .edit-emp-form button.cancel-emp:hover {
+  background: #232b3a;
+}
+@media (max-width: 900px) {
+  .dashboard-card, .card, #attendance-summary {
+    padding: 1.2rem 0.7rem 1.2rem 0.7rem;
+  }
+  #attendance-summary {
+    max-width: 100%;
+  }
+  #attendance-today-table th, #attendance-today-table td {
+    padding: 0.6rem 0.3rem;
+  }
+} 

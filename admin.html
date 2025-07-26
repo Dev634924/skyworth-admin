@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Skyworth Admin Dashboard</title>
+  <link href="admin.css" rel="stylesheet">
+   <link href="company profile.css" rel="stylesheet">
+  <link href="employee.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <script defer src="admin.js"></script>
+  
+</head>
+<body>
+  <div class="darkmode-toggle" style="position:fixed;top:18px;right:32px;z-index:1000;">
+    <button id="darkModeToggle" title="Toggle dark mode" style="background:#f7f7f7;border:none;border-radius:50%;width:38px;height:38px;box-shadow:0 2px 8px rgba(0,0,0,0.08);cursor:pointer;font-size:1.3rem;">🌙</button>
+  </div>
+  <div class="sidebar">
+    <div>
+      <img src="sky logo.png" alt="Skyworth Logo" class="logo-img" />
+      <div class="admin-title">
+        <a href="#admin">
+          <img src="admin.png" alt="Admin Icon" class="admin-icon" />
+          <span id="sidebarAdminName">Admin</span>
+        </a>
+      </div>
+      <ul>
+        <li><a href="#dashboard" class="active">Dashboard</a></li>
+        <li><a href="#profile">Company Profile</a></li>
+        <li><a href="#manual">Employee</a></li>
+        <li><a href="#rules">Rules</a></li>
+        <li><a href="#settings">Settings</a></li>
+      </ul>
+    </div>
+    <a onclick="logout()" class="logout">Logout</a>
+  </div>
+
+  <div class="main" id="main-content"></div>
+  <div id="adminModal" class="modal-overlay" style="display:none;">
+    <div class="modal-box">
+      <button class="modal-close" id="closeAdminModal">&times;</button>
+      <div id="adminModalContent"></div>
+    </div>
+  </div>
+
+  <script>
+    if (localStorage.getItem("isLoggedIn") !== "true") { 
+      window.location.href = "index.html";
+    }
+    if (localStorage.getItem("darkMode") === "true") {
+      document.body.classList.add("dark");
+    }
+
+    function logout() {
+      localStorage.removeItem("isLoggedIn");
+      window.location.href = "index.html";
+    }
+
+    
+
+    async function renderSection(id) {
+      let content = "";
+      if (typeof contentMap[id] === "function") {
+        content = await contentMap[id]();
+      } else {
+        content = contentMap[id] || `<header><h1>${id}</h1></header><div class="card"><p>Content coming soon...</p></div>`;
+      }
+      document.getElementById("main-content").innerHTML = content;
+      if (id === "dashboard") {
+        updateDateTime();
+        startClock();
+      }
+      if (id === "admin") {
+        
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const links = document.querySelectorAll(".sidebar ul li a, .admin-title a");
+      const adminLink = document.querySelector(".admin-title a");
+      links.forEach(link => {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          links.forEach(l => l.classList.remove("active"));
+          this.classList.add("active");
+
+          const target = this.getAttribute("href").substring(1);
+          if (target === "admin") {
+            openAdminModal();
+            adminLink.classList.add("active"); // ensure admin stays active
+          } else {
+            renderSection(target);
+          }
+        });
+      });
+
+      // Remove .active from admin link when modal is closed
+      document.getElementById("closeAdminModal").onclick = function() {
+        document.getElementById("adminModal").style.display = "none";
+        document.body.style.overflow = "auto";
+        adminLink.classList.remove("active");
+      };
+      document.getElementById("adminModal").onclick = function(e) {
+        if (e.target === this) {
+          this.style.display = "none";
+          document.body.style.overflow = "auto";
+          adminLink.classList.remove("active");
+        }
+      };
+
+      renderSection("dashboard");
+      setupModalClose();
+    });
+
+    function startClock() {
+      setInterval(() => {
+        const now = new Date();
+        const formatted = now.toLocaleTimeString('en-US', { hour12: false });
+        const clock = document.querySelector(".time-display");
+        if (clock) {
+          clock.innerHTML = `<img src="clock.jpg" alt="Clock" width="40" height="40" /> ${formatted}`;
+        }
+        // Update standby clock for attendance section
+        const standbyClock = document.getElementById('standby-clock');
+        if (standbyClock) {
+          standbyClock.textContent = formatted;
+        }
+      }, 1000);
+    }
+
+    function updateDateTime() {
+      const now = new Date();
+      const options = {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        hour: "2-digit",
+        minute: "2-digit",
+      };
+      const formatted = now.toLocaleDateString("en-US", options);
+      const span = document.getElementById("date-time-span");
+      if (span) span.textContent = formatted;
+    }
+    
+    function setupAdminTabs() {
+      const profileTab = document.getElementById("profileTab");
+      const userDataTab = document.getElementById("userDataTab");
+      const profileContent = document.getElementById("profileContent");
+      const userDataContent = document.getElementById("userDataContent");
+      profileTab.onclick = function() {
+        profileTab.classList.add("active");
+        userDataTab.classList.remove("active");
+        profileContent.style.display = "block";
+        userDataContent.style.display = "none";
+      };
+      userDataTab.onclick = function() {
+        userDataTab.classList.add("active");
+        profileTab.classList.remove("active");
+        profileContent.style.display = "none";
+        userDataContent.style.display = "block";
+      };
+    }
+
+    function setupAddUserForm() {
+      const form = document.getElementById("addUserForm");
+      if (!form) return;
+      form.onsubmit = function(e) {
+        e.preventDefault();
+        const name = document.getElementById("newName").value.trim();
+        const username = document.getElementById("newUsername").value.trim();
+        const password = document.getElementById("newPassword").value;
+        const confirm = document.getElementById("newConfirm").value;
+        if (!name || !username || !password || !confirm) return alert("All fields required.");
+        if (password !== confirm) return alert("Passwords do not match.");
+        // Save to localStorage (simple demo, no duplicate check)
+        let users = JSON.parse(localStorage.getItem("users") || "[]");
+        users.push({ name, username, password });
+        localStorage.setItem("users", JSON.stringify(users));
+        alert("User added!");
+        form.reset();
+      };
+    }
+
+    function openAdminModal() {
+      document.getElementById("adminModal").style.display = "flex";
+      document.body.style.overflow = "hidden";
+      document.getElementById("adminModalContent").innerHTML = contentMap.admin;
+      setupAdminTabs();
+      fillProfileInfo();
+      setupAddUserForm();
+    }
+
+    function setupModalClose() {
+      document.getElementById("closeAdminModal").onclick = function() {
+        document.getElementById("adminModal").style.display = "none";
+        document.body.style.overflow = "auto";
+      };
+      // Optional: close modal when clicking outside the box
+      document.getElementById("adminModal").onclick = function(e) {
+        if (e.target === this) {
+          this.style.display = "none";
+          document.body.style.overflow = "auto";
+        }
+      };
+    }
+  
+</script>
+
+</body>
+</html>

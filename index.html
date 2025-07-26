@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Page</title>
+  <link rel="stylesheet" href="index.css" />
+  <script defer src="index.js"></script>
+</head>
+<body>
+
+
+
+  <div class="container">
+    <img src="sky logo.png" alt="Skyworth Logo" class="logo-img" />
+    
+
+    <div class="box">
+      <h2>Login to your account</h2>
+      <form onsubmit="return validateLogin()">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" placeholder="Enter a username" />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Enter a password" />
+        </div>
+        
+
+       
+        <div class="form-options">
+          <label><input type="checkbox" name="remember" /> Remember Me</label>
+          <a href="#">Forgot Password?</a>
+        </div>
+
+        <div class="buttons">
+          <button type="submit" class="login">Login</button>
+          <button type="reset" class="cancel">Cancel</button>
+        </div>
+      </form>
+      <p id="error-msg" style="color: red; display: none; margin-top: 10px;"></p>
+
+    </div>
+  </div>
+
+
+
+
